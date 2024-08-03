@@ -25,7 +25,7 @@ This script performs the face recognition and marks attendance. It uses the webc
 'app.py' :
 This Streamlit application displays the attendance data in a web interface. It automatically refreshes to show the latest attendance records.
 
-'data' :
+'data --->  haarcascade_frontalface_default.xml / faces_data.pkl / names_pkl' :
 This directory contains the Haar cascades XML file for face detection and the pickled data files for storing face embeddings and labels.
 
 'Attendance' ;
