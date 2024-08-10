@@ -63,16 +63,21 @@ def collect_faces():
     if os.path.exists(faces_path):
         with open(faces_path, 'rb') as f:
             existing_faces = pickle.load(f)
+
+        # Convert existing_faces to a numpy array
+        existing_faces = np.array(existing_faces)
+
+        # Reshape existing_faces to ensure it has 2 dimensions
         if existing_faces.ndim == 1:
             existing_faces = existing_faces.reshape(-1, 50*50*3)
         elif existing_faces.ndim == 2:
-            existing_faces = existing_faces.reshape(-1, 50*50*3)
-        else:
-            raise ValueError(f"[ERROR] Unsupported dimension for existing_faces: {existing_faces.ndim}")
+            # Check if the second dimension is not equal to 50*50*3 and reshape if needed
+            if existing_faces.shape[1] != 50*50*3:
+                existing_faces = existing_faces.reshape(-1, 50*50*3)
 
         target_shape = (50, 50)
         faces_data = resize_face_data(faces_data, target_shape)
-        existing_faces = resize_face_data(existing_faces, target_shape)
+
         all_faces = np.concatenate((existing_faces, faces_data), axis=0)
     else:
         all_faces = faces_data
